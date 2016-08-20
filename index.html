@@ -54,9 +54,19 @@
 </p>
 
 <h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating pages manually</h3>
+<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><font color="#3A24FF">TREE MODEL APPROACH</font></h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>Entry point is <b>ObjectMapper</b> class. That class has a method called <i><b>readTree(source)</b></i> which will return an instance of <b>JsonNode</b> object. After getting the jsonNode object you will
+will be able to traverse the each node. See the code for all the methods.</p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#696969; '>//tree model approach</span>
+ObjectMapper mapper = new ObjectMapper()<span style='color:#808030; '>;</span>
+JsonNode rootNode = mapper.readTree(new File("D:\\eclipseqaworkspace\\jackson-parsing02\\src\\test\\resources\\productsearch.json"))<span style='color:#808030; '>;</span>
+List&lt;JsonNode> listOfNodes = rootNode.findParents("image")<span style='color:#808030; '>;</span>
+System.out.println(listOfNodes.size())<span style='color:#808030; '>;</span>
+for(JsonNode n : listOfNodes)<span style='color:#800080; '>{</span>
+<span style='color:#bb7977; font-weight:bold; '>System</span><span style='color:#808030; '>.</span>out<span style='color:#808030; '>.</span>println<span style='color:#808030; '>(</span>n<span style='color:#808030; '>.</span>findValue<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"height"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>asText<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
 
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
