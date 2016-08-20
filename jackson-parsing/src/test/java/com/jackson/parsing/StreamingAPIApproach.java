@@ -13,8 +13,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class StreamingAPIApproach {
 
 	public static void main(String[] args) throws JsonProcessingException, IOException {
-		ObjectMapper mapper1 = new ObjectMapper();
-		JsonNode jNode = mapper1.readTree(new File("D:\\eclipseqaworkspace\\jackson-parsing\\src\\test\\resources\\user.json"));
+		
+		//Creating an object of ObjectMapper class. This is an entry point
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode jNode = mapper.readTree(new File("D:\\eclipseqaworkspace\\jackson-parsing\\src\\test\\resources\\user.json"));
 
 		
 		//Using Streaming api approach	
