@@ -70,10 +70,23 @@ for(JsonNode n : listOfNodes)<span style='color:#800080; '>{</span>
 </pre>
 
 <h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><font color="#3A24FF">STREAMING API APPROACH</font></h3>
 
-<p>You can @mention a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
+<p> The Idea is create <b>JsonParser</b> object for reading the JSON file and Create <b>JSonGenerator</b> for writing the JSON to the JSON file. The Entry Point of this apprach
+will be <b>JsonFactory</b> Object. On the Factory object call <b>createParser(source)</b> method which will return <b>JsonParser</b> Object. With the help of while loop traverse it untill the end of the Json document
+and grab the desired field that you are looking for.</p>
+<pre style='color:#000000;background:#ffffff;'><span style='color:#696969; '>//Using Streaming api approach	</span>
+JsonFactory jFactory = new JsonFactory()<span style='color:#808030; '>;</span>
+JsonParser jParser = jFactory.createParser(new File("D:\\eclipseqaworkspace\\jackson-parsing\\src\\test\\resources\\user.json"))<span style='color:#808030; '>;</span>
+while(jParser.nextToken()!=JsonToken.END_OBJECT)<span style='color:#800080; '>{</span>
+<span style='color:#bb7977; font-weight:bold; '>String</span> fieldName <span style='color:#808030; '>=</span> jParser<span style='color:#808030; '>.</span>getCurrentName<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#696969; '>//if(fieldName.equals("name")){ ==> Not working cz looping time fieldName might be null and trying to perform equal on null</span>
+<span style='color:#800000; font-weight:bold; '>if</span><span style='color:#808030; '>(</span><span style='color:#0000e6; '>"first"</span><span style='color:#808030; '>.</span>equals<span style='color:#808030; '>(</span>fieldName<span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>{</span>
+	jParser<span style='color:#808030; '>.</span>nextToken<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+	<span style='color:#bb7977; font-weight:bold; '>System</span><span style='color:#808030; '>.</span>out<span style='color:#808030; '>.</span>println<span style='color:#808030; '>(</span>jParser<span style='color:#808030; '>.</span>getText<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+<span style='color:#800080; '>}</span>
+</pre>
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
 
