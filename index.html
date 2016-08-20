@@ -56,8 +56,9 @@
 <h3>
 <a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><font color="#3A24FF">TREE MODEL APPROACH</font></h3>
 
-<p>Entry point is <b>ObjectMapper</b> class. That class has a method called <i><b>readTree(source)</b></i> which will return an instance of <b>JsonNode</b> object. After getting the jsonNode object you will
-will be able to traverse the each node. See the code for all the methods.</p>
+<p>As name suggest this apprach is based on Tree view concept. You get a root node and from there you traverse to desired child element. This is similar to DOM parser in xml. 
+Entry point is <b>ObjectMapper</b> class. That class has a method called <i><b>readTree(source)</b></i> which will return an instance of <b>JsonNode</b> object. After getting the jsonNode object you will
+will be able to traverse the each node. Download the code for available methods that could be used in QA Automation Testing.</p>
 <pre style='color:#000000;background:#ffffff;'><span style='color:#696969; '>//tree model approach</span>
 ObjectMapper mapper = new ObjectMapper()<span style='color:#808030; '>;</span>
 JsonNode rootNode = mapper.readTree(new File("D:\\eclipseqaworkspace\\jackson-parsing02\\src\\test\\resources\\productsearch.json"))<span style='color:#808030; '>;</span>
