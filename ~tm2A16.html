@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Jackson-parsing by minhazq</title>
+  </head>
+
+  <body ccID="787">
+    <header ccID="799">
+      <div ccID="815" class="inner">
+        <h1 ccID="844">Jackson-parsing</h1>
+        <h2 ccID="878"></h2>
+        <a ccID="897" href="https://github.com/minhazq/jackson-parsing" class="button"><small ccID="965">View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div ccID="1043" id="content-wrapper">
+      <div ccID="1077" class="inner clearfix">
+        <section ccID="1115" id="main-content">
+          <h3 ccID="1154">
+<a ccID="1160" id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span ccID="1258" aria-hidden="true" class="octicon octicon-link"></span></a>Three approaches of Jackson framework.</h3>
+
+<p ccID="1370"> 1) Streaming API approach</p>
+<p ccID="1405"> 2) Tree Model approach</p>
+<p ccID="1437"> 3) Data binding approach</p>
+
+<h3 ccID="1473">
+<a ccID="1479" id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span ccID="1567" aria-hidden="true" class="octicon octicon-link"></span></a>Required Dependencies</h3>
+
+<p ccID="1662">You need the following dependency in your POM file</p>
+<pre ccID="1721" style='color:#000000;background:#ffffff;'><span ccID="1768" style='color:#a65700; '>&lt;</span><span ccID="1809" style='color:#5f5035; '>groupId</span><span ccID="1853" style='color:#a65700; '>></span>com.fasterxml.jackson.core<span ccID="1917" style='color:#a65700; '>&lt;/</span><span ccID="1959" style='color:#5f5035; '>groupId</span><span ccID="2003" style='color:#a65700; '>></span>
+<span ccID="2043" style='color:#a65700; '>&lt;</span><span ccID="2084" style='color:#5f5035; '>artifactId</span><span ccID="2131" style='color:#a65700; '>></span>jackson-core<span ccID="2181" style='color:#a65700; '>&lt;/</span><span ccID="2223" style='color:#5f5035; '>artifactId</span><span ccID="2270" style='color:#a65700; '>></span>
+
+<span ccID="2312" style='color:#a65700; '>&lt;</span><span ccID="2353" style='color:#5f5035; '>groupId</span><span ccID="2397" style='color:#a65700; '>></span>com.fasterxml.jackson.core<span ccID="2461" style='color:#a65700; '>&lt;/</span><span ccID="2503" style='color:#5f5035; '>groupId</span><span ccID="2547" style='color:#a65700; '>></span>
+<span ccID="2587" style='color:#a65700; '>&lt;</span><span ccID="2628" style='color:#5f5035; '>artifactId</span><span ccID="2675" style='color:#a65700; '>></span>jackson-databind<span ccID="2729" style='color:#a65700; '>&lt;/</span><span ccID="2771" style='color:#5f5035; '>artifactId</span><span ccID="2818" style='color:#a65700; '>></span>
+
+<span ccID="2860" style='color:#a65700; '>&lt;</span><span ccID="2901" style='color:#5f5035; '>groupId</span><span ccID="2945" style='color:#a65700; '>></span>com.fasterxml.jackson.core<span ccID="3009" style='color:#a65700; '>&lt;/</span><span ccID="3051" style='color:#5f5035; '>groupId</span><span ccID="3095" style='color:#a65700; '>></span>
+<span ccID="3135" style='color:#a65700; '>&lt;</span><span ccID="3176" style='color:#5f5035; '>artifactId</span><span ccID="3223" style='color:#a65700; '>></span>jackson-annotations<span ccID="3280" style='color:#a65700; '>&lt;/</span><span ccID="3322" style='color:#5f5035; '>artifactId</span><span ccID="3369" style='color:#a65700; '>></span>
+</pre>
+</p>
+<p ccID="3423"><i ccID="3426">In testing we will be using lot of classes from <i ccID="3477">databind artifact</i>. <u ccID="3503">Databind artifact</u> has a <b ccID="3534"><font ccID="3537" color="#FF4022">compile time dependency</font></b> for other two.
+  So no matter what apprach you take you have to download all of the artifact.</i>
+</p>
+
+<h3 ccID="3702">
+<a ccID="3708" id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span ccID="3806" aria-hidden="true" class="octicon octicon-link"></span></a><font ccID="3871" color="#3A24FF">TREE MODEL APPROACH</font></h3>
+
+<p ccID="3928">As name suggest this apprach is based on Tree view concept. You get a root node and from there you traverse to desired child element. This is similar to DOM parser in xml. 
+Entry point is <b ccID="4120">ObjectMapper</b> class. That class has a method called <i ccID="4178"><b ccID="4181">readTree(source)</b></i> which will return an instance of <b ccID="4242">JsonNode</b> object. After getting the jsonNode object you will
+will be able to traverse the each node. Download the code for available methods that could be used in QA Automation Testing.</p>
+<pre ccID="4440" style='color:#000000;background:#ffffff;'><span ccID="4487" style='color:#696969; '>//tree model approach</span>
+ObjectMapper mapper = new ObjectMapper()<span ccID="4587" style='color:#808030; '>;</span>
+JsonNode rootNode = mapper.readTree(new File("D:\\eclipseqaworkspace\\jackson-parsing02\\src\\test\\resources\\productsearch.json"))<span ccID="4759" style='color:#808030; '>;</span>
+List&lt;JsonNode> listOfNodes = rootNode.findParents("image")<span ccID="4860" style='color:#808030; '>;</span>
+System.out.println(listOfNodes.size())<span ccID="4938" style='color:#808030; '>;</span>
+for(JsonNode n : listOfNodes)<span ccID="5007" style='color:#800080; '>{</span>
+<span ccID="5047" style='color:#bb7977; font-weight:bold; '>System</span><span ccID="5108" style='color:#808030; '>.</span>out<span ccID="5149" style='color:#808030; '>.</span>println<span ccID="5194" style='color:#808030; '>(</span>n<span ccID="5233" style='color:#808030; '>.</span>findValue<span ccID="5280" style='color:#808030; '>(</span><span ccID="5318" style='color:#0000e6; '>"height"</span><span ccID="5363" style='color:#808030; '>)</span><span ccID="5401" style='color:#808030; '>.</span>asText<span ccID="5445" style='color:#808030; '>(</span><span ccID="5483" style='color:#808030; '>)</span><span ccID="5521" style='color:#808030; '>)</span><span ccID="5559" style='color:#800080; '>;</span>
+<span ccID="5599" style='color:#800080; '>}</span>
+</pre>
+
+<h3 ccID="5649">
+<a ccID="5655" id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span ccID="5755" aria-hidden="true" class="octicon octicon-link"></span></a><font ccID="5820" color="#3A24FF">STREAMING API APPROACH</font></h3>
+
+<p ccID="5880"> <b ccID="5884">For performance critical application, use Steaming API, otherwise, just use normal Jackson data binding</b>. The Idea in Streaming API aproach  is create <b ccID="6041">JsonParser</b> object for reading the JSON file and Create <b ccID="6103">JSonGenerator</b> 
+for writing the JSON to the JSON file. The Entry Point of this apprach
+will be <b ccID="6206">JsonFactory</b> Object. On the Factory object call <b ccID="6260">createParser(source)</b> method which will return <b ccID="6313">JsonParser</b> Object. With the help of while loop traverse it untill the end of the Json document
+and grab the desired field that you are looking for.</p>
+<p ccID="6474">Tricky part is Streaming API approach consider each string as a token. For example the following json:
+<pre ccID="6581">
+{ "products": {
+   	"product": [
+	{ "productCode": "VD"	 
+</pre>
+
+Each String including "{", "products" , "{" will be given when I will call <b ccID="6734">nextToken()</b>. So when I call jsonParser.nextToken() it will give "{" after that when I call nextToken() again it will
+give "products" and when I call again it will give me again "{". Notice that it did not consider <b ccID="6956">":"</b> as a string. The question is how I will traverse? If it is Tree View then it would have
+been given treeNode after calling nextToken(). In this apprach you have to be more carefull about when you are getting what.The second problem is, nextToken() does not give me a boolean
+value. So if i put it in while loop it does not work. nextToken() gives me <b ccID="7318">JsonToken</b> object.  
+</P>
+<p ccID="7352">Solution is <b ccID="7367">JsonToken</b> is an <font ccID="7390" color="#FF7010">enum</font> class. It has couple of static variable which means "{" or "}" or "[" or "]" for JsonToken.START_OBJECT ,
+JsonTOken.END_OBJECT , JsonTOken.START_ARRAY , JsonTOken.END_ARRAY etc.
+</p>
+<pre ccID="7610" style='color:#000000;background:#ffffff;'><span ccID="7657" style='color:#696969; '>//Using Streaming api approach	</span>
+JsonFactory jFactory = new JsonFactory()<span ccID="7767" style='color:#808030; '>;</span>
+JsonParser jParser = jFactory.createParser(new File("D:\\eclipseqaworkspace\\jackson-parsing\\src\\test\\resources\\user.json"))<span ccID="7935" style='color:#808030; '>;</span>
+while(jParser.nextToken()!=JsonToken.END_OBJECT)<span ccID="8023" style='color:#800080; '>{</span>
+<span ccID="8063" style='color:#bb7977; font-weight:bold; '>String</span> fieldName <span ccID="8135" style='color:#808030; '>=</span> jParser<span ccID="8181" style='color:#808030; '>.</span>getCurrentName<span ccID="8233" style='color:#808030; '>(</span><span ccID="8271" style='color:#808030; '>)</span><span ccID="8309" style='color:#800080; '>;</span>
+<span ccID="8349" style='color:#696969; '>//if(fieldName.equals("name")){ ==> Not working cz looping time fieldName might be null and trying to perform equal on null</span>
+<span ccID="8511" style='color:#800000; font-weight:bold; '>if</span><span ccID="8568" style='color:#808030; '>(</span><span ccID="8606" style='color:#0000e6; '>"first"</span><span ccID="8650" style='color:#808030; '>.</span>equals<span ccID="8694" style='color:#808030; '>(</span>fieldName<span ccID="8741" style='color:#808030; '>)</span><span ccID="8779" style='color:#808030; '>)</span><span ccID="8817" style='color:#800080; '>{</span>
+	jParser<span ccID="8865" style='color:#808030; '>.</span>nextToken<span ccID="8912" style='color:#808030; '>(</span><span ccID="8950" style='color:#808030; '>)</span><span ccID="8988" style='color:#800080; '>;</span>
+	<span ccID="9029" style='color:#bb7977; font-weight:bold; '>System</span><span ccID="9090" style='color:#808030; '>.</span>out<span ccID="9131" style='color:#808030; '>.</span>println<span ccID="9176" style='color:#808030; '>(</span>jParser<span ccID="9221" style='color:#808030; '>.</span>getText<span ccID="9266" style='color:#808030; '>(</span><span ccID="9304" style='color:#808030; '>)</span><span ccID="9342" style='color:#808030; '>)</span><span ccID="9380" style='color:#800080; '>;</span>
+<span ccID="9420" style='color:#800080; '>}</span>
+<span ccID="9460" style='color:#800080; '>}</span>
+</pre>
+<h3 ccID="9508">
+<a ccID="9514" id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span ccID="9602" aria-hidden="true" class="octicon octicon-link"></span></a><font ccID="9667" color="#3A24FF">AVAILABLE METHODS FOR TREE MODEL APPROACH</font></h3>
+
+<p ccID="9746">
+<font ccID="9751" size="3">The following methods is from <b ccID="9796">JsonNode</b> class.</font>
+<ul ccID="9827">
+   <b ccID="9836"> <li ccID="9840">findParents()</li>
+    <li ccID="9868">findValue()</li>
+    <li ccID="9894">path()</li>
+	<li ccID="9912">get()</li>
+    <li ccID="9932">elements()</li>
+    <li ccID="9957">asText()</li></b>
+</ul>
+
+<p ccID="9989">
+<b ccID="9994"><font ccID="9997" size="3"><u ccID="10012">findParents():</u></font></b> This method will return <b ccID="10069">list</b> object of of JsonNode type. As name suggest it will give me the all parents object of the
+specified matched tag. For example if I have a <i ccID="10219">product->productCode</i> then it will give me all the product nodes. I might have multiple product tag in my document. It will give me all.
+I will put it in a for-each loop to go into the child node containing productCode tag of each item. Inside of each product tag i am using <b ccID="10501"><u ccID="10504">findValue()</u></b> to get the value of productCode. 
+<pre ccID="10562" style='color:#000000;background:#ffffff;'>List&lt;JsonNode> listOfNodes = rootNode.findParents("product")<span ccID="10672" style='color:#808030; '>;</span>
+System.out.println(listOfNodes.size())<span ccID="10750" style='color:#808030; '>;</span>
+for(JsonNode n : listOfNodes)<span ccID="10819" style='color:#800080; '>{</span>
+<span ccID="10859" style='color:#bb7977; font-weight:bold; '>System</span><span ccID="10920" style='color:#808030; '>.</span>out<span ccID="10961" style='color:#808030; '>.</span>println<span ccID="11006" style='color:#808030; '>(</span>n<span ccID="11045" style='color:#808030; '>.</span>findValue<span ccID="11092" style='color:#808030; '>(</span><span ccID="11130" style='color:#0000e6; '>"productCode"</span><span ccID="11180" style='color:#808030; '>)</span><span ccID="11218" style='color:#808030; '>.</span>asText<span ccID="11262" style='color:#808030; '>(</span><span ccID="11300" style='color:#808030; '>)</span><span ccID="11338" style='color:#808030; '>)</span><span ccID="11376" style='color:#800080; '>;</span>
+<span ccID="11416" style='color:#800080; '>}</span>
+</pre>
+
+I am working with parent-child relationship.
+
+<p ccID="11514"><b ccID="11517"><font ccID="11520" size="3"><u ccID="11535">path():</u></font></b> Using this method you will go from parents node to desired child node by calling path() over and over again. For example:
+If i want to dig down to productCode then i have to call <i ccID="11741"><font ccID="11744" color="#000000">rootNode.path("product").path("productCode")</font></i> will give me a JsonNode object. After that i will call findValue() on that object
+to get the value of that node.
+</p>
+
+<p ccID="11945"><b ccID="11948"><font ccID="11951" size="3"><u ccID="11966">get():</u></font></b> Same as <b ccID="11999">path()</b> but instead of returning null when the tag is not there , it will return " missing node".</p>
+
+<p ccID="12110"><b ccID="12113"><font ccID="12116" size="3"><u ccID="12131">asText():</u></font></b> findValue() will return an JsonNode object but you need to call what type of value is that. You may call 
+<font ccID="12266" color="#000000">findValue("product").asText()</font> will return the string representation of the value. Remember you also have findValuesAsText() method which does
+the same thing. asInt() , asBoolean() , asDouble() , asLong() and many more also avaialable.
+</p>
+
+<p ccID="12540"><b ccID="12543"><font ccID="12546" size="3"><u ccID="12561">elements():</u></font></b> This will return an Iterator object of JsonNode. So if you have a node for example rootNode created then if you call that method
+on that node then it will give you a Iterator object to acces all value nodes of that Node.
+</p>
+
+For More method go to <a ccID="12844" href="https://fasterxml.github.io/jackson-databind/javadoc/2.2.0/com/fasterxml/jackson/databind/JsonNode" title="https://fasterxml.github.io/jackson-databind/javadoc/2.2.0/com/fasterxml/jackson/databind/JsonNode">JsonNode API</a>
+
+
+<h3 ccID="13082">
+<a ccID="13088" id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span ccID="13188" aria-hidden="true" class="octicon octicon-link"></span></a><font ccID="13253" color="#3A24FF">AVAILABLE METHODS FOR STREAMING API APPROACH</font></h3>
+
+
+
+</p> 
+
+</p>
+        </section>
+
+        <aside ccID="13384" id="sidebar">
+          <a ccID="13416" href="https://github.com/minhazq/jackson-parsing/zipball/master" class="button">
+            <small ccID="13513">Download</small>
+            .zip file
+          </a>
+          <a ccID="13587" href="https://github.com/minhazq/jackson-parsing/tarball/master" class="button">
+            <small ccID="13684">Download</small>
+            .tar.gz file
+          </a>
+
+          <p ccID="13763" class="repo-owner"><a ccID="13785" href="https://github.com/minhazq/jackson-parsing"></a> is maintained by <a ccID="13860" href="https://github.com/minhazq">minhazq</a>.</p>
+
+          <p ccID="13927">This page was generated by <a ccID="13957" href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a ccID="14038" href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
