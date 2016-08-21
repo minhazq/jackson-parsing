@@ -72,7 +72,7 @@ for(JsonNode n : listOfNodes)<span style='color:#800080; '>{</span>
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><font color="#3A24FF">STREAMING API APPROACH</font></h3>
 
-<p> The Idea is create <b>JsonParser</b> object for reading the JSON file and Create <b>JSonGenerator</b> for writing the JSON to the JSON file. The Entry Point of this apprach
+<p> <b>For performance critical application, use Steaming API, otherwise, just use normal Jackson data binding</b>. The Idea in Streaming API aproach  is create <b>JsonParser</b> object for reading the JSON file and Create <b>JSonGenerator</b> for writing the JSON to the JSON file. The Entry Point of this apprach
 will be <b>JsonFactory</b> Object. On the Factory object call <b>createParser(source)</b> method which will return <b>JsonParser</b> Object. With the help of while loop traverse it untill the end of the Json document
 and grab the desired field that you are looking for.</p>
 <pre style='color:#000000;background:#ffffff;'><span style='color:#696969; '>//Using Streaming api approach	</span>
