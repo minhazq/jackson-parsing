@@ -88,9 +88,59 @@ while(jParser.nextToken()!=JsonToken.END_OBJECT)<span style='color:#800080; '>{<
 <span style='color:#800080; '>}</span>
 </pre>
 <h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><font color="#3A24FF">AVAILABLE METHODS FOR TREE MODEL APPROACH</font></h3>
 
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
+<p>
+<font size="3">The following methods is from <b>JsonNode</b> class.</font>
+<ul>
+   <b> <li>findParents()</li>
+    <li>findValue()</li>
+    <li>path()</li>
+	<li>get()</li>
+    <li>elements()</li>
+    <li>asText()</li></b>
+</ul>
+
+<p>
+<b><font size="3"><u>findParents():</u></font></b> This method will return <b>list</b> object of of JsonNode type. As name suggest it will give me the all parents object of the
+specified matched tag. For example if I have a <i>product->productCode</i> then it will give me all the product nodes. I might have multiple product tag in my document. It will give me all.
+I will put it in a for-each loop to go into the child node containing productCode tag of each item. Inside of each product tag i am using <b><u>findValue()</u></b> to get the value of productCode. 
+<pre style='color:#000000;background:#ffffff;'>List&lt;JsonNode> listOfNodes = rootNode.findParents("product")<span style='color:#808030; '>;</span>
+System.out.println(listOfNodes.size())<span style='color:#808030; '>;</span>
+for(JsonNode n : listOfNodes)<span style='color:#800080; '>{</span>
+<span style='color:#bb7977; font-weight:bold; '>System</span><span style='color:#808030; '>.</span>out<span style='color:#808030; '>.</span>println<span style='color:#808030; '>(</span>n<span style='color:#808030; '>.</span>findValue<span style='color:#808030; '>(</span><span style='color:#0000e6; '>"productCode"</span><span style='color:#808030; '>)</span><span style='color:#808030; '>.</span>asText<span style='color:#808030; '>(</span><span style='color:#808030; '>)</span><span style='color:#808030; '>)</span><span style='color:#800080; '>;</span>
+<span style='color:#800080; '>}</span>
+</pre>
+
+I am working with parent-child relationship.
+
+<p><b><font size="3"><u>path():</u></font></b> Using this method you will go from parents node to desired child node by calling path() over and over again. For example:
+If i want to dig down to productCode then i have to call <i><font color="#000000">rootNode.path("product").path("productCode")</font></i> will give me a JsonNode object. After that i will call findValue() on that object
+to get the value of that node.
+</p>
+
+<p><b><font size="3"><u>get():</u></font></b> Same as <b>path()</b> but instead of returning null when the tag is not there , it will return " missing node".</p>
+
+<p><b><font size="3"><u>asText():</u></font></b> findValue() will return an JsonNode object but you need to call what type of value is that. You may call 
+<font color="#000000">findValue("product").asText()</font> will return the string representation of the value. Remember you also have findValuesAsText() method which does
+the same thing. asInt() , asBoolean() , asDouble() , asLong() and many more also avaialable.
+</p>
+
+<p><b><font size="3"><u>elements():</u></font></b> This will return an Iterator object of JsonNode. So if you have a node for example rootNode created then if you call that method
+on that node then it will give you a Iterator object to acces all value nodes of that Node.
+</p>
+
+For More method go to <a href="https://fasterxml.github.io/jackson-databind/javadoc/2.2.0/com/fasterxml/jackson/databind/JsonNode" title="https://fasterxml.github.io/jackson-databind/javadoc/2.2.0/com/fasterxml/jackson/databind/JsonNode">JsonNode API</a>
+
+
+<h3>
+<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><font color="#3A24FF">AVAILABLE METHODS FOR STREAMING API APPROACH</font></h3>
+
+
+
+</p> 
+
+</p>
         </section>
 
         <aside id="sidebar">
