@@ -20,6 +20,18 @@ public class StreamingAPIApproach {
 		
 		
 		while(jParser.nextToken()!=JsonToken.END_OBJECT){
+			jParser.nextToken();
+			System.out.println(jParser.getText());
+			
+		}
+		while(jParser.nextToken()!=JsonToken.END_ARRAY){
+					jParser.nextToken();
+					System.out.println(jParser.getText());
+				}
+			
+		
+		
+		/*while(jParser.nextToken()!=JsonToken.END_OBJECT){
 			String fieldName = jParser.getCurrentName();
 			//if(fieldName.equals("name")){ ==> Not working cz looping time fieldName might be null and trying to perform equal on null
 			if("errors".equals(fieldName)){
@@ -28,11 +40,8 @@ public class StreamingAPIApproach {
 			}
 		
 			
-			
-			//jParser.nextToken();
-			//System.out.println(jParser.getCurrentName());
 		}
-
+*/
 	}
 
 }
