@@ -37,10 +37,10 @@ public class TreeModelApproach {
 		}*/
 
 		//giving me the all the nodes which has imageId. 
-		List<JsonNode> listOfNodes = rootNode.findParents("imageId");
+		List<JsonNode> listOfNodes = rootNode.findParents("product");
 		System.out.println(listOfNodes.size());
 		for(JsonNode n : listOfNodes){
-				System.out.println(n.findValue("imageId").asText());
+				System.out.println(n.findValue("productCode").asText());
 			}
 			
 		}
